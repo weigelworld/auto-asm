@@ -1,0 +1,117 @@
+---
+assemblies:
+  asm1:
+    reference: /path/to/reference1.fasta
+    genome_size: 20k
+    eukaryotic: False
+    long_read_paths:
+      - /path/to/long/read/file1.bam
+      - /path/to/long/read/fileN.bam
+    paired_short_read_paths:
+      - - /path/to/short/read/paired_file1.fq.gz
+        - /path/to/short/read/paired_file2.fq.gz
+  asm2:
+    name: assembly 2
+    reference: /path/to/reference2.fasta
+    genome_size: 20m
+    eukaryotic: False
+    long_read_paths:
+      - /path/to/long/read/file1.bam
+      - /path/to/long/read/fileN.bam
+  asmN:
+    genome_size: 10g
+    eukaryotic: True
+    long_read_paths:
+      - /path/to/long/read/file1.bam
+      - /path/to/long/read/fileN.bam
+    paired_short_read_paths:
+      - - /path/to/short/read/paired_file1_run1.fq.gz
+        - /path/to/short/read/paired_file2_run1.fq.gz
+      - - /path/to/short/read/paired_file2_run2.fq.gz
+        - /path/to/short/read/paired_file2_run2.fq.gz
+paths:
+  smrtcmds_bin: /path/to/smrtcmds/bin
+rules:
+  convert_long_reads:
+    resources:
+      mem_mb: 8000
+  raw_long_reads_qc:
+    resources:
+      mem_mb: 2000
+  initial_assembly:
+    resources:
+      cores: 16
+      mem_mb: 128000
+  map_long_reads_polish:
+    resources:
+      cores: 16
+      mem_mb: 64000
+  merge_long_read_alignments_polish:
+    resources:
+      cores: 4
+      mem_mb: 16000
+  sort_long_read_alignments_polish:
+    resources:
+      cores: 8
+      mem_mb: 32000
+  index_long_read_alignments_polish:
+    resources:
+      mem_mb: 4000
+  index_initial_assembly:
+    resources:
+      mem_mb: 4000
+  first_polish:
+    resources:
+      cores: 16
+      mem_mb: 64000
+  index_first_polish:
+    resources:
+      cores: 4
+      mem_mb: 16000
+  raw_short_reads_qc:
+    resources:
+      cores: 2
+      mem_mb: 8000
+  trim_short_reads:
+    resources:
+      cores: 4
+      mem_mb: 8000
+    params:
+      FASTQ_qual_format: "sanger"
+      min_3prime_end_qual: 30
+      min_mean_pretrim_read_qual: 30
+      min_trimmed_len: 60
+  trimmed_short_reads_qc:
+    resources:
+      cores: 2
+      mem_mb: 8000
+  map_short_reads_polish:
+    resources:
+      cores: 32
+      mem_mb: 128000
+  merge_short_read_alignments_polish:
+    resources:
+      cores: 4
+      mem_mb: 16000
+  sort_short_read_alignments_polish:
+    resources:
+      cores: 8
+      mem_mb: 32000
+  index_short_read_alignments_polish:
+    resources:
+      mem_mb: 8000
+  second_polish:
+    resources:
+      cores: 32
+      mem_mb: 256000
+  scaffolding:
+    resources:
+      cores: 24
+      mem_mb: 192000
+    params:
+      kmer_size: 19
+      order: "contigs"
+  assembly_comparison:
+    resources:
+      cores: 16
+      mem_mb: 64000

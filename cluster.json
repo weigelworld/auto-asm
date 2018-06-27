@@ -1,0 +1,12 @@
+{
+  "__default__" :
+  {
+    "cores"         : "{threads}",
+    "mem_mb"        : "{resources.mem_mb_per_core}",
+    "walltime"      : "500:00:00",
+    "jobname"       : "auto-asm.{rule}.{wildcards}",
+    "output"        : "{wildcards.asm}/logs/cluster/\\$JOB_NAME.out",
+    "error"         : "{wildcards.asm}/logs/cluster/\\$JOB_NAME.err",
+    "other_options" : ""
+  }
+}

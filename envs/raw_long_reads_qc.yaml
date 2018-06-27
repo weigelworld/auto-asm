@@ -1,0 +1,5 @@
+channels:
+  - conda-forge
+dependencies:
+  - biopython=1.71
+  - matplotlib=2.2.2

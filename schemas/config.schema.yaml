@@ -1,0 +1,144 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+
+description: snakemake configuration file
+type: object
+properties:
+  assemblies:
+    type: object
+    propertyNames:
+      type: string
+      pattern: "^([A-z0-9]+)$"
+    patternProperties:
+      "^([A-z0-9]+)$":
+        type: object
+        required:
+          - genome_size
+          - eukaryotic
+          - long_read_paths
+        properties:
+          name:
+            type: string
+            description: nicely-formatted assembly name (e.g. Col-0)
+          reference:
+            type: string
+            description: path to reference genome in FASTA format
+          genome_size:
+            type: string
+            description: genome size, with optional k, m, or g suffixes (e.g. 120m)
+          eukaryotic:
+            type: boolean
+            description: whether the organism is eukaryotic or not
+          long_read_paths:
+            type: array
+            description: paths to PacBio long read BAM files
+            uniqueItems: True
+            items:
+              type: string
+          paired_short_read_paths:
+            type: array
+            description: pairs of paths to paired-end short read FASTQ files
+            minItems: 1
+            uniqueItems: True
+            items:
+              type: array
+              description: pair of paths to FASTQ files of a paired-end short read dataset
+              maxItems: 2
+              minItems: 2
+              uniqueItems: True
+              items:
+                type: string
+  paths:
+    type: object
+    properties:
+      smrtcmds_bin:
+        type: string
+        description: path to bin/ folder containing PacBio smrtcmds binaries
+    required:
+      - smrtcmds_bin
+  rules:
+    type: object
+    required:
+      - trim_short_reads
+      - second_polish
+      - scaffolding
+    propertyNames:
+      type: string
+      pattern: "^([a-z0-9_]+)$"
+    patternProperties:
+      "^([a-z0-9_]+)$":
+        type: object
+        properties:
+          resources:
+            type: object
+            properties:
+              cores:
+                type: integer
+                minimum: 1
+              mem_mb:
+                "$ref": "#/definitions/mem_mb"
+    properties:
+      trim_short_reads:
+        type: object
+        required:
+          - params
+        properties:
+          params:
+            type: object
+            required:
+              - FASTQ_qual_format
+              - min_3prime_end_qual
+              - min_mean_pretrim_read_qual
+              - min_trimmed_len
+            properties:
+              FASTQ_qual_format:
+                type: string
+                pattern: "^(sanger|solexa|auto)$"
+              min_3prime_end_qual:
+                type: integer
+                minimum: 0
+                maximum: 93
+              min_mean_pretrim_read_qual:
+                type: integer
+                minimum: 0
+                maximum: 93
+              min_trimmed_len:
+                type: integer
+                minimum: 0
+      second_polish:
+        type: object
+        required:
+          - resources
+        properties:
+          resources:
+            type: object
+            required:
+              - mem_mb
+            properties:
+              mem_mb:
+                "$ref": "#/definitions/mem_mb"
+      scaffolding:
+        type: object
+        required:
+          - params
+        properties:
+          params:
+            type: object
+            required:
+              - kmer_size
+              - order
+            properties:
+              kmer_size:
+                type: integer
+                minimum: 1
+              order:
+                type: string
+                pattern: "^(contigs|chains)$"
+
+required:
+  - assemblies
+  - paths
+  - rules
+definitions:
+  "mem_mb":
+    type: integer
+    minimum: 250

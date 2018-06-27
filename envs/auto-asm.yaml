@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - snakemake>=5.1
+  - networkx>=2.1
+  - pygraphviz>=1.3
