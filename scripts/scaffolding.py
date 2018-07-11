@@ -26,14 +26,14 @@ def scaffolding(output_scaffolds):
     print("Using fixed gap size of {} bp for scaffolding".format(fixed_gap_size))
 
     shell((
-        "reveal finish --64 "
-        "-m {params.kmer_size} "
-        "--nproc {threads} "
-        "--order {params.order} "
-        "--fixedgapsize "
-        "--gapsize {gapsize} "
-        "-o {out_basename} "
-        "{input.reference} {input.assembly} "
+        "reveal finish --64 " +
+        "-m {params.kmer_size} " +
+        "--nproc {threads} " +
+        "--order {params.order} " +
+        ("--fixedgapsize " if params.order == 'contigs') +
+        "--gapsize {gapsize} " +
+        "-o {out_basename} " +
+        "{input.reference} {input.assembly} " +
         "2> {log.stderr} > {log.stdout}").format(
             params=snakemake.params,
             threads=snakemake.threads,
