@@ -28,6 +28,8 @@ Download and install SMRT Tools (smrtcmds) from
 required; the installer offers a SMRT Tools-only installation option. **Do not**
 forget to put the path to the `smrtcmds/bin` folder in your configuration.
 
+auto-asm has been tested with PacBio SMRT Tools 5.1.
+
 ### Clone and configure auto-asm
 
 Clone the repository and copy the sample configuration file to a new file.
