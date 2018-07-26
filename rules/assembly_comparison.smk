@@ -43,7 +43,7 @@ rule assembly_comparison:
     stdout = "{asm}/logs/assembly_comparison.out",
     stderr = "{asm}/logs/assembly_comparison.err"
   shell:
-    'quast.py ' +
+    'quast ' +
     "-o {params.out_dir} " +
     ("-R {} ".format(config['assemblies'][wildcards.asm]['reference']) if hasattr(input, 'scaffolded') else '') +
     "--labels {params.labels:q} " +
