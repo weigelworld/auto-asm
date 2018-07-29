@@ -15,12 +15,6 @@ $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 $ bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
-### Install snakemake
-
-```
-$ conda env create --name "auto-asm" --file envs/auto-asm.yaml
-```
-
 ### Install smrtcmds
 
 Download and install SMRT Tools (smrtcmds) from
@@ -47,6 +41,12 @@ $ git clone https://github.com/weigelworld/auto-asm
 $ cd auto-asm
 $ cp config.yaml.sample config.yaml
 $ vim config.yaml
+```
+
+### Install snakemake
+
+```
+$ conda env create --name "auto-asm" --file envs/auto-asm.yaml
 ```
 
 ### Run auto-asm
