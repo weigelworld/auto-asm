@@ -9,6 +9,8 @@ Automated assembly pipeline for PacBio long read datasets.
 
 Be sure to accept the option to automatically modify your `.bashrc` or manually
 update it so that your installed miniconda packages are in your `PATH`.
+You may also need to copy what the conda installer adds to your `.bashrc` into
+your `.bash_profile` or source your `.bashrc` from your `.bash_profile`.
 
 ```
 $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
